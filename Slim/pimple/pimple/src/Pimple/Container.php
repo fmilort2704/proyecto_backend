@@ -140,7 +140,7 @@ class Container implements \ArrayAccess
      *
      * @param string $id The unique identifier for the parameter or object
      */
-    public function offsetUnset($id)
+    public function offsetUnset(mixed $offset): void
     {
         if (isset($this->keys[$id])) {
             if (\is_object($this->values[$id])) {
