@@ -78,18 +78,18 @@ class Container implements \ArrayAccess
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        if (isset($this->frozen[$id])) {
-            throw new FrozenServiceException($id);
+        if (isset($this->frozen[$offset])) {
+            throw new FrozenServiceException($offset);
         }
 
-        $this->values[$id] = $value;
-        $this->keys[$id] = true;
+        $this->values[$offset] = $value;
+        $this->keys[$offset] = true;
     }
 
     /**
      * Gets a parameter or an object.
      *
-     * @param string $id The unique identifier for the parameter or object
+     * @param string $offset The unique identifier for the parameter or object
      *
      * @return mixed The value of the parameter or an object
      *
@@ -97,28 +97,28 @@ class Container implements \ArrayAccess
      */
     public function offsetGet(mixed $offset): mixed
     {
-        if (!isset($this->keys[$id])) {
-            throw new UnknownIdentifierException($id);
+        if (!isset($this->keys[$offset])) {
+            throw new UnknownIdentifierException($offset);
         }
 
         if (
-            isset($this->raw[$id])
-            || !\is_object($this->values[$id])
-            || isset($this->protected[$this->values[$id]])
-            || !\method_exists($this->values[$id], '__invoke')
+            isset($this->raw[$offset])
+            || !\is_object($this->values[$offset])
+            || isset($this->protected[$this->values[$offset]])
+            || !\method_exists($this->values[$offset], '__invoke')
         ) {
-            return $this->values[$id];
+            return $this->values[$offset];
         }
 
-        if (isset($this->factories[$this->values[$id]])) {
-            return $this->values[$id]($this);
+        if (isset($this->factories[$this->values[$offset]])) {
+            return $this->values[$offset]($this);
         }
 
-        $raw = $this->values[$id];
-        $val = $this->values[$id] = $raw($this);
-        $this->raw[$id] = $raw;
+        $raw = $this->values[$offset];
+        $val = $this->values[$offset] = $raw($this);
+        $this->raw[$offset] = $raw;
 
-        $this->frozen[$id] = true;
+        $this->frozen[$offset] = true;
 
         return $val;
     }
@@ -126,28 +126,28 @@ class Container implements \ArrayAccess
     /**
      * Checks if a parameter or an object is set.
      *
-     * @param string $id The unique identifier for the parameter or object
+     * @param string $offset The unique identifier for the parameter or object
      *
      * @return bool
      */
     public function offsetExists(mixed $offset): bool
     {
-        return isset($this->keys[$id]);
+        return isset($this->keys[$offset]);
     }
 
     /**
      * Unsets a parameter or an object.
      *
-     * @param string $id The unique identifier for the parameter or object
+     * @param string $offset The unique identifier for the parameter or object
      */
     public function offsetUnset(mixed $offset): void
     {
-        if (isset($this->keys[$id])) {
-            if (\is_object($this->values[$id])) {
-                unset($this->factories[$this->values[$id]], $this->protected[$this->values[$id]]);
+        if (isset($this->keys[$offset])) {
+            if (\is_object($this->values[$offset])) {
+                unset($this->factories[$this->values[$offset]], $this->protected[$this->values[$offset]]);
             }
 
-            unset($this->values[$id], $this->frozen[$id], $this->raw[$id], $this->keys[$id]);
+            unset($this->values[$offset], $this->frozen[$offset], $this->raw[$offset], $this->keys[$offset]);
         }
     }
 
