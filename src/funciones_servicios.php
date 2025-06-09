@@ -6,10 +6,10 @@ use Firebase\JWT\Key;
 require 'Firebase/autoload.php';
 
 
-define("SERVIDOR_BD","localhost");
+/*define("SERVIDOR_BD","localhost");
 define("USUARIO_BD","root");
 define("CLAVE_BD","");
-define("NOMBRE_BD","bd_lvup");
+define("NOMBRE_BD","bd_lvup");*/
 
 define("SERVIDOR_BD","mysql.railway.internal");
 define("USUARIO_BD","root");
