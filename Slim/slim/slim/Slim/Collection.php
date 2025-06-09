@@ -109,42 +109,42 @@ class Collection implements CollectionInterface
      *
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists(mixed $offset): bool
     {
-        return $this->has($key);
+        return $this->has($offset);
     }
 
     /**
      * Get collection item for key
      *
-     * @param string $key The data key
+     * @param string $offset The data key
      *
      * @return mixed The key's value, or the default value
      */
-    public function offsetGet($key)
+    public function offsetGet(mixed $offset): mixed
     {
-        return $this->get($key);
+        return $this->get($offset);
     }
 
     /**
      * Set collection item
      *
-     * @param string $key   The data key
+     * @param string $offset   The data key
      * @param mixed  $value The data value
      */
-    public function offsetSet($key, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->set($key, $value);
+        $this->set($offset, $value);
     }
 
     /**
      * Remove item from collection
      *
-     * @param string $key The data key
+     * @param string $offset The data key
      */
-    public function offsetUnset($key)
+    public function offsetUnset(mixed $offset): void
     {
-        $this->remove($key);
+        $this->remove($offset);
     }
 
     /**
@@ -152,7 +152,7 @@ class Collection implements CollectionInterface
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->data);
     }
@@ -162,7 +162,7 @@ class Collection implements CollectionInterface
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->data);
     }
