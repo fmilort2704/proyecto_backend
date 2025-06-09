@@ -95,7 +95,7 @@ class Container implements \ArrayAccess
      *
      * @throws UnknownIdentifierException If the identifier is not defined
      */
-    public function offsetGet($id)
+    public function offsetGet(mixed $offset): mixed
     {
         if (!isset($this->keys[$id])) {
             throw new UnknownIdentifierException($id);
