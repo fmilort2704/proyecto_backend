@@ -76,7 +76,7 @@ class Container implements \ArrayAccess
      *
      * @throws FrozenServiceException Prevent override of a frozen service
      */
-    public function offsetSet($id, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (isset($this->frozen[$id])) {
             throw new FrozenServiceException($id);
