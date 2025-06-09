@@ -2,7 +2,7 @@
 // Lista de orígenes permitidos
 $allowed_origins = [
     'http://localhost:3000',       // Desarrollo local
-    'http://lvup.kesug.com'        // Producción
+    'https://lvup-proyect.vercel.app'        // Producción
 ];
 
 // Detectar el origen de la petición
