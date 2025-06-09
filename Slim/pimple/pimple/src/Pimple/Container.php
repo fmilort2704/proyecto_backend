@@ -95,7 +95,7 @@ class Container implements \ArrayAccess
      *
      * @throws UnknownIdentifierException If the identifier is not defined
      */
-    public function offsetGet(mixed $offset): mixed
+    public function offsetGet($id)
     {
         if (!isset($this->keys[$id])) {
             throw new UnknownIdentifierException($id);
@@ -140,7 +140,7 @@ class Container implements \ArrayAccess
      *
      * @param string $id The unique identifier for the parameter or object
      */
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset($id)
     {
         if (isset($this->keys[$id])) {
             if (\is_object($this->values[$id])) {
